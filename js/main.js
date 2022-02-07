@@ -51,7 +51,6 @@ function loadTable() {
         showTable(contacts.result);
     }
 
-
 }
 
 function showTable(contacts) {
@@ -76,8 +75,6 @@ function addContact() {
     const phoneEl = document.querySelector("#phone");
     const emailEl = document.querySelector("#email");
 
-
-
     addContactBtn.addEventListener("click", (e) => {
         const contact = {
             name: userNameEl.value,
@@ -98,8 +95,6 @@ function addContact() {
             console.log("...error");
         }
     })
-
-
 }
 
 function clearButtons(obj) {
@@ -109,7 +104,6 @@ function clearButtons(obj) {
 }
 
 addContact();
-
 
 function deleteContact() {
     // const deleteEl = tbody.querySelectorAll(".delete");
@@ -144,15 +138,12 @@ function editContact() {
         transaction.onsuccess = function () {
             openModal(transaction.result);
         }
-
     })
 }
 
 editContact();
 
-
 function openModal(contact) {
-
     const modalHtml = `
     <div class="modal show" data-modal = "${contact.id}">
         <svg class="modal__cross" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +182,6 @@ function openModal(contact) {
 
 function closeModal() {
     const modal = document.querySelector(".modal")
-
     overlay.addEventListener("click", (e) => {
         overlay.classList.remove("show");
         modal.remove();
@@ -207,7 +197,6 @@ function closeModal() {
 }
 
 function saveChanges(contact) {
-
     const modal = document.querySelector(".modal")
     const saveBtn = modal.querySelector(".modal #edit_contact");
     const nameEl = modal.querySelector(".modal #user_name_modal");
@@ -221,20 +210,16 @@ function saveChanges(contact) {
             phone: String(phoneEl.value),
             email: String(emailEl.value)
         }
-
         overlay.classList.remove("show");
         modal.remove();
         upDateBd(item);
-
     })
-
 }
 
 function upDateBd(item) {
     let transaction = db.transaction('contacts', 'readwrite')
         .objectStore("contacts")
         .put(item);
-
     transaction.onsuccess = function () {
         loadTable();
         alert("Конакт изменен");
@@ -243,13 +228,11 @@ function upDateBd(item) {
 
 
 function searchContact() {
-
     searchEl.addEventListener("input", (e) => {
         let str = searchEl.value.toLowerCase();
         let transaction = db.transaction("contacts")
             .objectStore("contacts")
             .getAll();
-
 
         transaction.onsuccess = function () {
             let tempArr = transaction.result.filter(contact => {
